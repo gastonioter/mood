@@ -1,3 +1,7 @@
-export default function Page(){
-    return <h1>Signup</h1>
+import { SignUp } from '@clerk/nextjs'
+
+export default function Page() {
+  return<div className='flex items-center justify-center h-screen'>
+  <SignUp/>
+</div>
 }
