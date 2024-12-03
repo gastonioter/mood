@@ -1,23 +1,32 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+
+const links = ["journal", "profile"];
 
 export default function SideNav() {
   return (
-    <aside className="row-span-4 col-start-1 row-start-1 px-3 border-r-2">
-      <Link href={'/journal'}>
+    <aside className="row-span-4 col-start-1 row-start-1 px-2 border-r-2">
+      <h1 className="text-lg text-center mt-2 font-bold ">Mood</h1>
+      <Link href={"/journal"}>
         <Image
           alt="mood logo"
           width={512}
           height={512}
-          src={'/mood-logo.png'}
-          className="my-4"
+          src={"/mood-logo.png"}
+          className="mb-4"
         ></Image>
       </Link>
-      <nav>
+      <nav className="px-1">
         <ul>
-          <li>
-            <Link href={'/journal'}>Home</Link>
-          </li>
+          {links.map((link) => {
+            return (
+              <Link href={`/${link}`}>
+                <li className="bg-zinc-500/10 text-sm rounded-md mt-4 py-2 px-3">
+                  {link.at(0)?.toUpperCase() + link.slice(1)}
+                </li>
+              </Link>
+            );
+          })}
         </ul>
       </nav>
     </aside>
