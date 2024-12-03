@@ -1,6 +1,5 @@
 "use client";
 
-import Spinner from "@/app/ui/Spinner";
 import { updateEntry } from "@/utils/api";
 import { JournalEntryType } from "@/utils/types";
 import clsx from "clsx";
@@ -12,13 +11,9 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
   const router = useRouter();
 
   const [isSaving, setIsSaving] = useState(false);
-  const ref = useRef<HTMLTextAreaElement>();
+  const ref = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    if (!ref.current) {
-      ref.current = document.querySelector("textarea") as HTMLTextAreaElement;
-    }
-
     const listener = async (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "Enter") {
         setIsSaving(true);
