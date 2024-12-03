@@ -34,19 +34,17 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
   }, []);
 
   return (
-    <div className="w-full h-full mt-1">
-      <textarea
-        ref={ref}
-        className={clsx("w-full h-full outline-none text-xl p-8", {
-          "text-gray-400": isSaving,
-        })}
-        defaultValue={entry.content}
-        disabled={isSaving}
-        name=""
-        placeholder="Start typing something about your day..."
-        id=""
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
-    </div>
+    <textarea
+      ref={ref}
+      className={clsx("w-full h-full outline-none text-xl p-8 resize-none", {
+        "text-gray-400": isSaving,
+      })}
+      defaultValue={entry.content}
+      disabled={isSaving}
+      name=""
+      placeholder="Start typing something about your day..."
+      id=""
+      onChange={(e) => setContent(e.target.value)}
+    ></textarea>
   );
 }
