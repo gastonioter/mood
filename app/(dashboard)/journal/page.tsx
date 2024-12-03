@@ -10,6 +10,7 @@ export default async function Page() {
       <h2 className="text-3xl mb-8">Journal</h2>
       <div className="grid grid-cols-3 gap-4">
         <NewEntrCard />
+
         {entries.map((entry) => (
           <JournalEntry entry={entry} key={entry.id} />
         ))}

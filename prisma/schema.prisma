@@ -35,7 +35,7 @@ model JournalEntry {
 
   analisis Analisis?
 
-  @@index([userId])
+  @@index([id, userId])
 }
 
 model Analisis {

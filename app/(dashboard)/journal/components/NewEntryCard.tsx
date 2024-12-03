@@ -1,21 +1,17 @@
 "use client";
 
 import { createNewEntry } from "@/utils/api";
-import { useRouter } from "next/navigation"; // Cambio aquí
+import { useRouter } from "next/navigation";
 
 export default function NewEntryCard() {
-  // Eliminamos `async`
   const router = useRouter();
 
   async function handleNewEntry() {
-    try {
-      const data = await createNewEntry(); // Esperamos la creación de la entrada
-      router.push(`/journal/${data.id}`); // Navegamos a la nueva entrada
-    } catch (error) {
-      console.error("Error creating new entry:", error);
-    }
+    const data = await createNewEntry();
+    router.push(`/journal/${data.id}`);
   }
 
+  
   return (
     <div
       onClick={handleNewEntry}

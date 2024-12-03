@@ -1,6 +1,7 @@
 import { getUserByClerkId } from "@/data/user";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async () => {
   const user = await getUserByClerkId();
@@ -11,6 +12,8 @@ export const POST = async () => {
       content: "a new journal!",
     },
   });
+
+  revalidatePath("/journal");
 
   return NextResponse.json({ data: entry });
 };

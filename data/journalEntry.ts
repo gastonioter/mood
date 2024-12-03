@@ -12,3 +12,16 @@ export const getEntries = async () => {
 
   return entries;
 };
+
+export const getEntryById = async (id: string) => {
+  const user = await getUserByClerkId();
+
+  const entry = await prisma.journalEntry.findUnique({
+    where: {
+      id,
+      userId: user.id,
+    },
+  });
+
+  return entry;
+};

@@ -5,17 +5,9 @@ const links = ["journal", "profile"];
 
 export default function SideNav() {
   return (
-    <aside className="row-span-4 col-start-1 row-start-1 px-2 border-r-2">
-      <h1 className="text-lg text-center mt-2 font-bold ">Mood</h1>
-      <Link href={"/journal"}>
-        <Image
-          alt="mood logo"
-          width={512}
-          height={512}
-          src={"/mood-logo.png"}
-          className="mb-4"
-        ></Image>
-      </Link>
+    <aside className="row-span-4 col-start-1 row-start-2 px-2 border-r-2">
+      <h1 className="text-lg text-center mt-2 font-bold ">Mood App</h1>
+
       <nav className="px-1">
         <ul>
           {links.map((link, index) => {
