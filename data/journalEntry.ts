@@ -8,6 +8,9 @@ export const getEntries = async () => {
     where: {
       userId: user?.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return entries;

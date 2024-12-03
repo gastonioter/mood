@@ -24,7 +24,7 @@ export const updateEntry = async ({
     content,
   };
   const response = await fetch(
-    new Request(createURL(`/api/jounral/${id}`), {
+    new Request(createURL(`/api/journal/${id}`), {
       method: "PATCH",
       body: JSON.stringify(body),
     })

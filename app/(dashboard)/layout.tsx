@@ -12,7 +12,7 @@ export default function DashboardLayout({
     <div className="h-screen w-screen grid grid-cols-[256px_minmax(900px,_1fr)] grid-rows-[60px_1fr_30px]">
       <Header></Header>
       <SideNav></SideNav>
-      <main>{children}</main>
+      <main className="overflow-scroll">{children}</main>
       <Footer></Footer>
     </div>
   );
