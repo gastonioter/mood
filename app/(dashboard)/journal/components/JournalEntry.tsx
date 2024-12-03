@@ -7,5 +7,5 @@ type JournalEntry = {
 };
 
 export default function JournalEntry({ entry }: { entry: JournalEntry }) {
-  return <li></li>;
+  return <li>{entry.content}</li>;
 }

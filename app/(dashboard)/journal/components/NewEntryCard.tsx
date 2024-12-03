@@ -1,8 +1,19 @@
 "use client";
 
-export default function NewEntrCard() {
-  function handleNewEntry() {
-    console.log("asdsd");
+import { createNewEntry } from "@/utils/api";
+import { useRouter } from "next/navigation"; // Cambio aquí
+
+export default function NewEntryCard() {
+  // Eliminamos `async`
+  const router = useRouter();
+
+  async function handleNewEntry() {
+    try {
+      const data = await createNewEntry(); // Esperamos la creación de la entrada
+      router.push(`/journal/${data.id}`); // Navegamos a la nueva entrada
+    } catch (error) {
+      console.error("Error creating new entry:", error);
+    }
   }
 
   return (
