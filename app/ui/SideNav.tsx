@@ -18,9 +18,9 @@ export default function SideNav() {
       </Link>
       <nav className="px-1">
         <ul>
-          {links.map((link) => {
+          {links.map((link, index) => {
             return (
-              <Link href={`/${link}`}>
+              <Link href={`/${link}`} key={index}>
                 <li className="bg-zinc-500/10 text-sm rounded-md mt-4 py-2 px-3">
                   {link.at(0)?.toUpperCase() + link.slice(1)}
                 </li>
