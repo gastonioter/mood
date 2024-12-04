@@ -30,7 +30,13 @@ export const syncUserWithClerk = async () => {
 
 export const getUserByClerkId = async () => {
   const { userId } = await auth();
-  console.log(userId);
+
+  if (!userId) {
+    return {
+      status: 401,
+      message: "Unauthorized",
+    };
+  }
 
   const user = await prisma.user.findUnique({
     where: {
