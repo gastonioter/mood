@@ -4,8 +4,8 @@ import { updateEntry } from "@/utils/api";
 import { JournalEntryType } from "@/utils/types";
 import clsx from "clsx";
 import Image from "next/image";
-import { useState } from "react";
-import { useAutosave } from "react-autosave";
+import React, { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function Editor({ entry }: { entry: JournalEntryType }) {
   const [content, setContent] = useState(entry.content);
@@ -24,47 +24,51 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
     { name: "Summary", value: summary },
     { name: "Subject", value: subject },
     { name: "Mood", value: mood },
-    { name: "Negative", value: negative ? "YES" : " NO" },
+    { name: "Negative", value: negative },
     { name: "Color", value: color },
   ];
 
-  useAutosave({
-    data: content, // data to watch for changes
+  const handleTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+    save();
+  };
 
-    onSave: async (_text: string) => {
-      if (_text === entry.content) return;
-
-      setIsSaving(true);
-      const updatedEntry = await updateEntry({ id: entry.id, content: _text });
-      setAnalysis(updatedEntry.analysis);
-      setIsSaving(false);
-    }, // function to call when data changes
-
-    interval: 2000,
-    saveOnUnmount: false,
-  });
+  const save = useDebouncedCallback(async () => {
+    setIsSaving(true);
+    const updatedEntry = await updateEntry({
+      id: entry.id,
+      content: content.trim(),
+    });
+    setAnalysis(updatedEntry.analysis);
+    setIsSaving(false);
+  }, 2000);
 
   return (
-    <div className="flex">
+    <div className="flex h-full">
       {isSaving && (
         <div className="absolute text-lg top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex items-center justify-center pointer-events-none">
           Analysing...
         </div>
       )}
-      <textarea
-        className={clsx("w-full h-full outline-none text-xl p-8 resize-none", {
-          "text-gray-400": isSaving,
-        })}
-        value={content}
-        placeholder="Start typing something about your day..."
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
-      <div className="basis-[65%]">
+      <div className="mt-1 w-full h-full">
+        <textarea
+          className={clsx(
+            "w-full h-full p-8 outline-none scroll-px-3 text-xl resize-none",
+            {
+              "text-gray-400": isSaving,
+            }
+          )}
+          value={content}
+          placeholder="Start typing something about your day..."
+          onChange={handleTyping}
+        ></textarea>
+      </div>
+      <div className="basis-[65%] border-l border-black/10">
         <h2
           style={{
             backgroundColor: analysis?.color,
           }}
-          className=" p-5 text-2xl flex items-center "
+          className="p-5 text-2xl flex items-center "
         >
           {mood.toUpperCase() || "Analysis"}
           <Image
@@ -80,10 +84,10 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
             {dataAnalysis.map((item) => (
               <li
                 key={item.name}
-                className="px-2 py-4 border-b botder-t border-black/10 flex items-center justify-between"
+                className="p-4 border-b gap-3 leading-5 botder-t border-black/10 flex items-center justify-between"
               >
                 <span className="font-semibold text-lg">{item.name}</span>
-                <span>{item.value}</span>
+                <span className="text-right">{item.value.toString()}</span>
               </li>
             ))}
           </ul>

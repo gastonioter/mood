@@ -7,12 +7,10 @@ export const POST = async () => {
   const user = await getUserByClerkId();
 
   if (!user) {
-    return {
+    return NextResponse.json({
       status: 401,
-      json: {
-        error: "Unauthorized",
-      },
-    };
+      message: "Unauthorized",
+    });
   }
 
   const entry = await prisma.journalEntry.create({

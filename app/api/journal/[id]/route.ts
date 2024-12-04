@@ -1,7 +1,6 @@
 import { getUserByClerkId } from "@/data/user";
 import { prisma } from "@/lib/prisma";
 import { analize } from "@/utils/ai";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 type UpdatePayloadType = {
@@ -12,16 +11,17 @@ type Params = Promise<{
   id: string;
 }>;
 
-export const PATCH = async (req: Request, { params }: { params: Params }) => {
+export const PATCH = async (
+  req: Request,
+  { params }: { params: Params }
+): Promise<NextResponse> => {
   const user = await getUserByClerkId();
 
   if (!user) {
-    return {
+    return NextResponse.json({
       status: 401,
-      json: {
-        error: "Unauthorized",
-      },
-    };
+      message: "Unauthorized",
+    });
   }
 
   const { id: entryId } = await params;
@@ -42,15 +42,13 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
   const analysis = await analize(content);
 
   if (!analysis) {
-    return {
+    return NextResponse.json({
       status: 500,
-      json: {
-        error: "Failed to analyze content",
-      },
-    };
+      message: "Failed to analyze content",
+    });
   }
 
-  const savedAnalisis = await prisma.analysis.upsert({
+  const savedAnalysis = await prisma.analysis.upsert({
     create: {
       ...analysis,
       entryId,
@@ -63,5 +61,5 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
     },
   });
 
-  return NextResponse.json({ data: { ...entry, analysis: savedAnalisis } });
+  return NextResponse.json({ data: { ...entry, analysis: savedAnalysis } });
 };

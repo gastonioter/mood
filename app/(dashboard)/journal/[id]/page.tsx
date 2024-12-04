@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   return (
-    <div className="p-3  h-full">
+    <div className="  h-full">
       <Editor entry={entry as JournalEntryType} />
     </div>
   );
