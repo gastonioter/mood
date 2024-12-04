@@ -1,11 +1,10 @@
 import { getEntries } from "@/data/journalEntry";
 import JournalEntry from "./components/JournalEntry";
 import NewEntrCard from "./components/NewEntryCard";
-import { analize } from "@/utils/ai";
+import { JournalEntryType } from "@/utils/types";
 
 export default async function Page() {
-  const entries = await getEntries();
-  
+  const entries = (await getEntries()) as Array<JournalEntryType>;
 
   return (
     <div className="p-10 bg-zinc-300/10 h-full">
