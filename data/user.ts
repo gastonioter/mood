@@ -1,48 +1,44 @@
 import { prisma } from "@/lib/prisma";
-import { auth, currentUser } from "@clerk/nextjs/server"
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export const syncUserWithClerk = async ()=>{
+export const syncUserWithClerk = async () => {
+  const { userId } = await auth();
 
-    const {userId} = await auth();
+  const match = await prisma.user.findUnique({
+    where: {
+      clerkId: userId as string,
+    },
+  });
 
-    const match = await prisma.user.findUnique({
-        where:{
-            clerkId:userId as string
-        }
-    })
-    
-    if(match) return true;
-    
+  if (match) return true;
 
-    //  A brand new user was created and needs to be in sync with our DB
+  //  A brand new user was created and needs to be in sync with our DB
 
-    const clerkUser = await currentUser();
-    if(!clerkUser) return false;
+  const clerkUser = await currentUser();
+  if (!clerkUser) return false;
 
+  const user = await prisma.user.create({
+    data: {
+      clerkId: clerkUser?.id,
+      email: clerkUser?.emailAddresses[0].emailAddress,
+    },
+  });
 
-    const user = await prisma.user.create({
-        data:{
-            clerkId:clerkUser?.id,
-            email:clerkUser?.emailAddresses[0].emailAddress
-        }
-    })
+  return user;
+};
 
-    return user;
+export const getUserByClerkId = async () => {
+  const { userId } = await auth();
+  console.log(userId);
 
-}
+  const user = await prisma.user.findUnique({
+    where: {
+      clerkId: userId,
+    },
+  });
 
-export const getUserByClerkId = async ()=>{
-    const {userId} = await auth();
-    
-    const user  = await prisma.user.findUniqueOrThrow({
-        where:{
-            clerkId:userId as string
-        }
-    })
-    
+  console.log(user);
 
-    return user
-
-
-}
+  return user;
+};

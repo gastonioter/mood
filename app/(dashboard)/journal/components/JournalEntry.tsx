@@ -3,7 +3,6 @@ import Link from "next/link";
 
 export default function JournalEntry({ entry }: { entry }) {
   const { content, createdAt, id } = entry;
-  console.log(entry);
   const date = new Date(entry.createdAt).toDateString();
   return (
     <Link href={`/journal/${id}`}>

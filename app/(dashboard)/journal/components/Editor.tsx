@@ -16,7 +16,7 @@ export default function Editor({ entry }) {
     { name: "Summary", value: analysis?.summary },
     { name: "Subject", value: analysis?.subject },
     { name: "Mood", value: analysis?.mood },
-    { name: "Negative", value: analysis?.negative },
+    { name: "Negative", value: analysis?.negative ? "YES" : " NO" },
     { name: "Color", value: analysis?.color },
   ];
 
@@ -58,7 +58,7 @@ export default function Editor({ entry }) {
           }}
           className=" p-5 text-2xl flex items-center "
         >
-          {analysis?.mood.toUpperCase() || "Analysis"}
+          {analysis?.mood?.toUpperCase() || "Analysis"}
           <Image
             alt="mood logo"
             width={80}

@@ -7,6 +7,8 @@ export const createNewEntry = async () => {
     method: "POST",
   });
 
+  console.log(response);
+
   if (response.ok) {
     const data = await response.json();
     return data.data;

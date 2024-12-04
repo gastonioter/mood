@@ -21,7 +21,6 @@ export const getEntries = async () => {
 
 export const getEntryById = async (id: string) => {
   const user = await getUserByClerkId();
-
   const entry = await prisma.journalEntry.findUnique({
     where: {
       id,
