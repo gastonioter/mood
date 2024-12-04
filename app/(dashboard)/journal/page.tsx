@@ -5,9 +5,7 @@ import { analize } from "@/utils/ai";
 
 export default async function Page() {
   const entries = await getEntries();
-  await analize(
-    "hoy fue un dia muy malo y no me siento bien",
-  );
+  
 
   return (
     <div className="p-10 bg-zinc-300/10 h-full">

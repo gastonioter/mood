@@ -18,11 +18,12 @@ const parser = StructuredOutputParser.fromZodSchema(
     color: z
       .string()
       .describe(
-        "a hexadecimal color code which represents that mood. Example #0101fe for blue."
+        "a hexadecimal color code which represents that mood. Don't be extremistis to choose the color. Example #0101fe for blue."
       ),
     // sentimentScore: z.number().describe("the sentiment score of the entry."),
   })
 );
+type analisis = z.infer<typeof parser.schema>;
 
 const createPropmt = async (content: string) => {
   const format_instructions = parser.getFormatInstructions();
@@ -43,7 +44,7 @@ const createPropmt = async (content: string) => {
   return input;
 };
 
-export const analize = async (content: string) => {
+export const analize = async (content: string): Promise<analisis | false> => {
   const model = new ChatOpenAI({
     temperature: 0,
     modelName: "gpt-3.5-turbo",
@@ -56,5 +57,8 @@ export const analize = async (content: string) => {
 
   try {
     return parser.parse(output);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
 };

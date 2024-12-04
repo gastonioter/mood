@@ -11,6 +11,9 @@ export const getEntries = async () => {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      analisis: true,
+    },
   });
 
   return entries;
@@ -23,6 +26,9 @@ export const getEntryById = async (id: string) => {
     where: {
       id,
       userId: user.id,
+    },
+    include: {
+      analisis: true,
     },
   });
 
