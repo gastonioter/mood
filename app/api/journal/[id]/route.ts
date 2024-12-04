@@ -14,14 +14,24 @@ type Params = Promise<{
 
 export const PATCH = async (req: Request, { params }: { params: Params }) => {
   const user = await getUserByClerkId();
-  const { id } = await params;
+
+  if (!user) {
+    return {
+      status: 401,
+      json: {
+        error: "Unauthorized",
+      },
+    };
+  }
+
+  const { id: entryId } = await params;
 
   const data: UpdatePayloadType = await req.json();
   const { content } = data;
 
   const entry = await prisma.journalEntry.update({
     where: {
-      id,
+      id: entryId,
       userId: user.id,
     },
     data: {
@@ -29,39 +39,29 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
     },
   });
 
-  const analisis = await analize(content);
+  const analysis = await analize(content);
 
-  if (!analisis) return;
+  if (!analysis) {
+    return {
+      status: 500,
+      json: {
+        error: "Failed to analyze content",
+      },
+    };
+  }
 
-  const savedAnalisis = await prisma.analisis.upsert({
-    where: {
-      entryId: entry.id,
-    },
+  const savedAnalisis = await prisma.analysis.upsert({
     create: {
-      ...analisis,
-      entryId: entry.id,
+      ...analysis,
+      entryId,
     },
     update: {
-      ...analisis,
+      ...analysis,
     },
-  });
-
-  const finalEntry = await prisma.journalEntry.update({
     where: {
-      id,
-      userId: user.id,
-    },
-    data: {
-      analisisId: analisis.id,
-    },
-    include: {
-      analisis: true,
+      entryId,
     },
   });
 
-  
-
-  console.log(entry.id);
-
-  return NextResponse.json({ data: finalEntry });
+  return NextResponse.json({ data: { ...entry, analysis: savedAnalisis } });
 };

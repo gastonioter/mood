@@ -7,8 +7,14 @@ export const POST = async () => {
   const user = await getUserByClerkId();
 
   if (!user) {
-    return NextResponse.error();
+    return {
+      status: 401,
+      json: {
+        error: "Unauthorized",
+      },
+    };
   }
+
   const entry = await prisma.journalEntry.create({
     data: {
       userId: user.id,

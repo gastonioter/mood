@@ -1,7 +1,7 @@
 import { getEntryById } from "@/data/journalEntry";
 import Editor from "../components/Editor";
 import { notFound } from "next/navigation";
-import Analisis from "../components/Analisis";
+import { JournalEntryType } from "@/utils/types";
 
 type Params = Promise<{
   id: string;
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: Params }) {
 
   return (
     <div className="p-3  h-full">
-      <Editor entry={entry} />
+      <Editor entry={entry as JournalEntryType} />
     </div>
   );
 }

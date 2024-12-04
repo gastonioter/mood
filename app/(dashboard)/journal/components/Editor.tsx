@@ -1,23 +1,31 @@
 "use client";
 
 import { updateEntry } from "@/utils/api";
+import { JournalEntryType } from "@/utils/types";
 import clsx from "clsx";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAutosave } from "react-autosave";
 
-export default function Editor({ entry }) {
+export default function Editor({ entry }: { entry: JournalEntryType }) {
   const [content, setContent] = useState(entry.content);
   const [isSaving, setIsSaving] = useState(false);
-  const [analysis, setAnalysis] = useState(entry.analisis ?? {});
+  const [analysis, setAnalysis] = useState(entry.analysis);
 
-  const dataAnalisis = [
-    { name: "Summary", value: analysis?.summary },
-    { name: "Subject", value: analysis?.subject },
-    { name: "Mood", value: analysis?.mood },
-    { name: "Negative", value: analysis?.negative ? "YES" : " NO" },
-    { name: "Color", value: analysis?.color },
+  const {
+    summary = "",
+    subject = "",
+    negative = "",
+    color = "",
+    mood = "",
+  } = analysis || {};
+
+  const dataAnalysis = [
+    { name: "Summary", value: summary },
+    { name: "Subject", value: subject },
+    { name: "Mood", value: mood },
+    { name: "Negative", value: negative ? "YES" : " NO" },
+    { name: "Color", value: color },
   ];
 
   useAutosave({
@@ -28,7 +36,7 @@ export default function Editor({ entry }) {
 
       setIsSaving(true);
       const updatedEntry = await updateEntry({ id: entry.id, content: _text });
-      setAnalysis(updatedEntry.analisis);
+      setAnalysis(updatedEntry.analysis);
       setIsSaving(false);
     }, // function to call when data changes
 
@@ -58,7 +66,7 @@ export default function Editor({ entry }) {
           }}
           className=" p-5 text-2xl flex items-center "
         >
-          {analysis?.mood?.toUpperCase() || "Analysis"}
+          {mood.toUpperCase() || "Analysis"}
           <Image
             alt="mood logo"
             width={80}
@@ -69,7 +77,7 @@ export default function Editor({ entry }) {
         </h2>
         <div>
           <ul className="">
-            {dataAnalisis.map((item) => (
+            {dataAnalysis.map((item) => (
               <li
                 key={item.name}
                 className="px-2 py-4 border-b botder-t border-black/10 flex items-center justify-between"
