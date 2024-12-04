@@ -11,11 +11,10 @@ export default function NewEntryCard() {
     router.push(`/journal/${data.id}`);
   }
 
-  
   return (
     <div
       onClick={handleNewEntry}
-      className="cursor-pointer overflow-hidden rounded-lg bg-white shadow"
+      className="cursor-pointer overflow-hidden rounded-lg  bg-white shadow"
     >
       <div className="px-5 py-6">
         <span className="text-3xl">New Entry</span>
