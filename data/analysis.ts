@@ -15,8 +15,12 @@ export const getSentimentsScore = async () => {
     where: {
       userId: user.id,
     },
-    select: {
-      sentimentScore: true,
+    orderBy: {
+      createdAt: "asc", 
     },
   });
+
+  const summ = analyses.reduce((all, curr) => all + curr.sentimentScore, 0);
+  const avg = Math.round(summ / analyses.length);
+  return { analyses, avg };
 };

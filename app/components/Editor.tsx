@@ -52,7 +52,7 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
       )}
       <textarea
         className={clsx(
-          "w-full basis-1/2 lg:flex-1 p-8 outline-none  text-xl resize-none",
+          "w-full basis-96 lg:flex-1 p-8 outline-none  text-xl resize-none",
           {
             "text-gray-400": isSaving,
           }
