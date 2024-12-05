@@ -2,9 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-*:focus {
-  outline: none;
-  border-width: 2px;
-  border-color: rgb(59 130 246);
-}
-

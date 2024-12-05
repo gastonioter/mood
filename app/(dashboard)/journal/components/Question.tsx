@@ -1,5 +1,6 @@
 "use client";
 
+import Spinner from "@/app/ui/Spinner";
 import { makeQuestion } from "@/utils/api";
 import { useState } from "react";
 
@@ -17,26 +18,36 @@ export default function Question() {
   }
 
   return (
-    <form action="" className="flex gap-4" onSubmit={handleSubmit}>
-      <label htmlFor="search" className="sr-only">
-        Search
-      </label>
-      <input
-        type="text"
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        placeholder="Question something about your mood..."
-        id="search"
-        className="rounded-lg w-full border-black/10 p-3 focus:border-blue-500 border-2 outline-none "
-      />
-      <button
-        type="submit"
-        className="bg-blue-300 hover:bg-blue-400 transition  py-2 px-6 rounded-lg"
-      >
-        Ask
-      </button>
-      {answer && <p>{answer}</p>}
-      {loading && <div>Loading...</div>}
-    </form>
+    <>
+      <div className="mb-3">
+        <form className="flex gap-2  justify-between" onSubmit={handleSubmit}>
+          <label htmlFor="search" className="sr-only">
+            Search
+          </label>
+          <input
+            type="text"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Ask something about your mood..."
+            id="search"
+            className="rounded-lg border-black/10 p-3 focus:border-blue-500 border-2 w-full outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-blue-300 hover:bg-blue-400 transition  py-2 px-10 rounded-lg"
+          >
+            Ask
+          </button>
+        </form>
+      </div>
+      <div className="">
+        {answer && <p className="">{answer}</p>}
+        {loading && (
+          <div className="w-full flex items-center justify-center">
+            <Spinner />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
