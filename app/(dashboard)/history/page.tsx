@@ -2,7 +2,7 @@ import HistoryChart from "@/app/components/HistoryChart";
 import { getSentimentsScore } from "@/data/analysis";
 
 export default async function History() {
-  const { avg, analyses } = await getSentimentsScore();
+  const { avg, analyses = [] } = await getSentimentsScore();
 
   return (
     <div className="p-10 bg-zinc-300/10 h-full">
