@@ -4,7 +4,7 @@ import NewEntrCard from "../../components/NewEntryCard";
 import { JournalEntryType } from "@/utils/types";
 import Question from "../../components/Question";
 
-export const cache = 'force-cache'
+
 export default async function Page() {
 
   const entries = (await getEntries()) as Array<JournalEntryType>;
