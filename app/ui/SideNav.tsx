@@ -4,21 +4,17 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  ClipboardDocumentIcon,
   Cog6ToothIcon,
+  NewspaperIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 const links = [
   {
     href: "/journal",
     name: "Journal",
-    icon: ClipboardDocumentIcon,
+    icon: NewspaperIcon,
   },
-  {
-    href: "/profile",
-    name: "Profile",
-    icon: UserCircleIcon,
-  },
+
   {
     href: "/settings",
     name: "Settings",

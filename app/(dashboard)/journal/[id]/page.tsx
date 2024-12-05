@@ -1,5 +1,5 @@
 import { getEntryById } from "@/data/journalEntry";
-import Editor from "../components/Editor";
+import Editor from "../../../components/Editor";
 import { notFound } from "next/navigation";
 import { JournalEntryType } from "@/utils/types";
 

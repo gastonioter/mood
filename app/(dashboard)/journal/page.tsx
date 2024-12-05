@@ -1,10 +1,12 @@
 import { getEntries } from "@/data/journalEntry";
-import JournalEntry from "./components/JournalEntry";
-import NewEntrCard from "./components/NewEntryCard";
+import JournalEntry from "../../components/JournalEntry";
+import NewEntrCard from "../../components/NewEntryCard";
 import { JournalEntryType } from "@/utils/types";
-import Question from "./components/Question";
+import Question from "../../components/Question";
 
+export const cache = 'force-cache'
 export default async function Page() {
+
   const entries = (await getEntries()) as Array<JournalEntryType>;
 
   return (

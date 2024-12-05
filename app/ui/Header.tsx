@@ -8,7 +8,7 @@ export default function Header() {
       <Link href={"/journal"} className="flex items-center font-bold ">
         <h1 className="text-lg text-center mt-2 font-bold ">Mood App</h1>
       </Link>
-      <UserButton showName userProfileUrl="/profile"></UserButton>
+      <UserButton showName></UserButton>
     </header>
   );
 }
