@@ -1,4 +1,4 @@
-import { syncUserWithClerk } from "@/data/user";
+import { syncUserWithClerk } from "@/utils/auth";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

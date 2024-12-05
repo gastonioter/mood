@@ -1,4 +1,4 @@
-import { getUserByClerkId } from "@/data/user";
+import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/lib/prisma";
 import { analize } from "@/utils/ai";
 import { NextResponse } from "next/server";

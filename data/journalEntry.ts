@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { getUserByClerkId } from "./user";
+import { getUserByClerkId } from "../utils/auth";
 
 export const getEntries = async () => {
   const user = await getUserByClerkId();

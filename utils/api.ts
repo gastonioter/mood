@@ -7,8 +7,6 @@ export const createNewEntry = async () => {
     method: "POST",
   });
 
-  console.log(response);
-
   if (response.ok) {
     const data = await response.json();
     return data.data;
@@ -31,6 +29,20 @@ export const updateEntry = async ({
       body: JSON.stringify(body),
     })
   );
+  if (response.ok) {
+    const data = await response.json();
+    return data.data;
+  }
+};
+
+export const makeQuestion = async (question: string) => {
+  const response = await fetch(
+    new Request(createURL(`/api/question`), {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    })
+  );
+
   if (response.ok) {
     const data = await response.json();
     return data.data;

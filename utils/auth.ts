@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export const syncUserWithClerk = async () => {
   const { userId } = await auth();

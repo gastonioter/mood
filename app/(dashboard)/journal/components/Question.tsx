@@ -1,12 +1,19 @@
 "use client";
 
+import { makeQuestion } from "@/utils/api";
 import { useState } from "react";
 
 export default function Question() {
   const [question, setQuestion] = useState("");
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
+    setAnswer("");
+    const answer = await makeQuestion(question);
+    setAnswer(answer);
+    setLoading(false);
   }
 
   return (
@@ -28,6 +35,8 @@ export default function Question() {
       >
         Ask
       </button>
+      {answer && <p>{answer}</p>}
+      {loading && <div>Loading...</div>}
     </form>
   );
 }
