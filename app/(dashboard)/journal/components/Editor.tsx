@@ -44,7 +44,7 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
   }, 2000);
 
   return (
-    <div className="flex h-full">
+    <div className="lg:flex h-1/2 lg:h-full">
       {isSaving && (
         <div className="absolute text-lg top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex items-center justify-center pointer-events-none">
           Analysing...
@@ -63,7 +63,7 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
           onChange={handleTyping}
         ></textarea>
       </div>
-      <div className="basis-[65%] border-l border-black/10">
+      <div className="lg:basis-[65%] border-l border-black/10">
         <h2
           style={{
             backgroundColor: analysis?.color,

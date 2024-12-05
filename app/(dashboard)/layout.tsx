@@ -9,10 +9,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen w-screen grid grid-cols-[256px_minmax(900px,_1fr)] grid-rows-[60px_1fr_30px]">
+    <div className="h-screen w-screen grid grid-cols-[200px_minmax(400px,_1fr)] grid-rows-[60px_1fr_30px]">
       <Header></Header>
       <SideNav></SideNav>
-      <main className="overflow-scroll">{children}</main>
+      <main className="overflow-scroll ">{children}</main>
       <Footer></Footer>
     </div>
   );

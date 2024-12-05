@@ -1,20 +1,38 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 
-const links = ["journal", "profile"];
+import clsx from "clsx";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const links = [
+  {
+    href: "/journal",
+    name: "Journal",
+  },
+  {
+    href: "/profile",
+    name: "Profile",
+  },
+];
 
 export default function SideNav() {
+  const pathname = usePathname();
   return (
     <aside className="row-span-4 col-start-1 row-start-2 px-2 border-r-2">
-     
-
       <nav className="px-1">
         <ul>
-          {links.map((link, index) => {
+          {links.map((link) => {
             return (
-              <Link href={`/${link}`} key={index}>
-                <li className="bg-zinc-500/10 text-sm rounded-md mt-4 py-2 px-3">
-                  {link.at(0)?.toUpperCase() + link.slice(1)}
+              <Link href={link.href} key={link.href}>
+                <li
+                  className={clsx(
+                    "bg-zinc-500/10 text-sm rounded-md mt-4 py-4 px-3",
+                    {
+                      "bg-sky-100 text-blue-600": pathname === link.href,
+                    }
+                  )}
+                >
+                  {link.name}
                 </li>
               </Link>
             );

@@ -14,6 +14,7 @@ export default function NewEntryCard() {
   return (
     <div
       onClick={handleNewEntry}
+      
       className="cursor-pointer overflow-hidden rounded-lg  bg-white shadow"
     >
       <div className="px-5 py-6">
