@@ -52,7 +52,7 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
       )}
       <textarea
         className={clsx(
-          "w-full flex-basis-[260px] lg:flex-1 p-8 outline-none  text-xl resize-none",
+          "w-full basis-1/2 lg:flex-1 p-8 outline-none  text-xl resize-none",
           {
             "text-gray-400": isSaving,
           }
@@ -62,7 +62,7 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
         onChange={handleTyping}
       ></textarea>
 
-      <div className="border-l h-full">
+      <div className="border-l h-full md:basis-1/3">
         <h2
           style={{
             backgroundColor: analysis?.color,

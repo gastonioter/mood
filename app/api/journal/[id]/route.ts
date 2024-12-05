@@ -50,14 +50,16 @@ export const PATCH = async (
 
   const savedAnalysis = await prisma.analysis.upsert({
     create: {
-      ...analysis,
+    ...analysis,
       entryId,
-    },
-    update: {
-      ...analysis,
+      userId: user.id,
     },
     where: {
       entryId,
+      userId: user.id,
+    },
+    update: {
+      ...analysis,
     },
   });
 

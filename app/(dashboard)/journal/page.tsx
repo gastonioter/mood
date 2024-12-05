@@ -4,13 +4,11 @@ import NewEntrCard from "../../components/NewEntryCard";
 import { JournalEntryType } from "@/utils/types";
 import Question from "../../components/Question";
 
-
 export default async function Page() {
-
   const entries = (await getEntries()) as Array<JournalEntryType>;
 
   return (
-    <div className="p-10 bg-zinc-300/10">
+    <div className="p-10 bg-zinc-300/10 h-full">
       <h2 className="text-3xl mb-8">Journal</h2>
 
       <Question />

@@ -24,7 +24,11 @@ const parser = StructuredOutputParser.fromZodSchema(
       .describe(
         "a hexadecimal color code which represents that mood. Don't be extremistis to choose the color. Example #0101fe for blue."
       ),
-    // sentimentScore: z.number().describe("the sentiment score of the entry."),
+    sentimentScore: z
+      .number()
+      .describe(
+        "sentiment of the text rated on a scale from -10 to 10, where -10 is extremely negative, 0 is neutral, and 10 is extremely positive."
+      ),
   })
 );
 
@@ -99,7 +103,7 @@ export const qa = async (
   const docs = entries.map(
     (entry) =>
       new Document({
-        pageContent: entry.content,
+        pageContent: entry.content && entry.content, // if the content is "", the OpenAI API throws and error
         metadata: { source: entry.id, date: entry.createdAt },
       })
   );

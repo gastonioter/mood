@@ -2,8 +2,10 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 import {
+  ChartBarIcon,
   Cog6ToothIcon,
   NewspaperIcon,
   UserCircleIcon,
@@ -13,6 +15,12 @@ const links = [
     href: "/journal",
     name: "Journal",
     icon: NewspaperIcon,
+  },
+
+  {
+    href: "/history",
+    name: "History",
+    icon: ChartBarIcon,
   },
 
   {
