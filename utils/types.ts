@@ -9,11 +9,14 @@ export type JournalEntryType = {
 
 export type AnalisysType = {
   id: string;
-  color: string;
   createdAt: Date;
   updatedAt: Date;
+  entryId: string;
+  userId: string;
   mood: string;
   summary: string;
   subject: string;
+  color: string;
   negative: boolean;
+  sentimentScore: number;
 };
