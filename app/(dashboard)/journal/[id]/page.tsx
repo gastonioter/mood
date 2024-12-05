@@ -15,9 +15,5 @@ export default async function Page({ params }: { params: Params }) {
     notFound();
   }
 
-  return (
-    <div className="h-full">
-      <Editor entry={entry as JournalEntryType} />
-    </div>
-  );
+  return <Editor entry={entry as JournalEntryType} />;
 }

@@ -44,26 +44,25 @@ export default function Editor({ entry }: { entry: JournalEntryType }) {
   }, 2000);
 
   return (
-    <div className="lg:flex h-1/2 lg:h-full">
+    <div className="flex flex-col h-full lg:flex-row">
       {isSaving && (
         <div className="absolute text-lg top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex items-center justify-center pointer-events-none">
           Analysing...
         </div>
       )}
-      <div className="mt-1 w-full h-full">
-        <textarea
-          className={clsx(
-            "w-full h-full p-8 outline-none scroll-px-3 text-xl resize-none",
-            {
-              "text-gray-400": isSaving,
-            }
-          )}
-          value={content}
-          placeholder="Start typing something about your day..."
-          onChange={handleTyping}
-        ></textarea>
-      </div>
-      <div className="lg:basis-[65%] border-l border-black/10">
+      <textarea
+        className={clsx(
+          "w-full flex-basis-[260px] lg:flex-1 p-8 outline-none  text-xl resize-none",
+          {
+            "text-gray-400": isSaving,
+          }
+        )}
+        value={content}
+        placeholder="Start typing something about your day..."
+        onChange={handleTyping}
+      ></textarea>
+
+      <div className="border-l h-full">
         <h2
           style={{
             backgroundColor: analysis?.color,

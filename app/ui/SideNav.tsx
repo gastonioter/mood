@@ -3,36 +3,50 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import {
+  ClipboardDocumentIcon,
+  Cog6ToothIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 const links = [
   {
     href: "/journal",
     name: "Journal",
+    icon: ClipboardDocumentIcon,
   },
   {
     href: "/profile",
     name: "Profile",
+    icon: UserCircleIcon,
+  },
+  {
+    href: "/settings",
+    name: "Settings",
+    icon: Cog6ToothIcon,
   },
 ];
 
 export default function SideNav() {
   const pathname = usePathname();
   return (
-    <aside className="row-span-4 col-start-1 row-start-2 px-2 border-r-2">
-      <nav className="px-1">
-        <ul>
+    <aside>
+      <nav>
+        <ul className="grid grid-flow-col">
           {links.map((link) => {
+            const LinkIcon = link.icon;
+
             return (
               <Link href={link.href} key={link.href}>
                 <li
                   className={clsx(
-                    "bg-zinc-500/10 text-sm rounded-md mt-4 py-4 px-3",
+                    "bg-zinc-500/10 text-sm rounded-md text-center py-4 px-3",
                     {
                       "bg-sky-100 text-blue-600": pathname === link.href,
                     }
                   )}
                 >
-                  {link.name}
+                  <LinkIcon className="size-7 mx-auto" />
+                  <p className="hidden md:block">{link.name}</p>
                 </li>
               </Link>
             );
